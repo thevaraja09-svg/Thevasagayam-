@@ -12,6 +12,7 @@ import {
   AuditLogItem,
   AppSettings,
 } from '../types';
+import { mockFetch, isMockMode } from './mockApi';
 
 class ApiClient {
   private token: string | null = null;
@@ -43,18 +44,54 @@ class ApiClient {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
 
-    const response = await fetch(`/api${endpoint}`, {
-      ...options,
-      headers,
-    });
+    const fullEndpoint = `/api${endpoint}`;
 
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      throw new Error(data.error || `HTTP error! status: ${response.status}`);
+    // If running in client mode (GitHub Pages or standalone static)
+    if (isMockMode()) {
+      const mockRes = await mockFetch(fullEndpoint, {
+        ...options,
+        headers,
+      });
+      const data = await mockRes.json().catch(() => ({}));
+      if (!mockRes.ok) {
+        throw new Error(data.error || `Error! status: ${mockRes.status}`);
+      }
+      return data as T;
     }
 
-    return data as T;
+    try {
+      const response = await fetch(fullEndpoint, {
+        ...options,
+        headers,
+      });
+
+      if (!response.ok) {
+        // Fallback to mock API if backend returns 404 or fails
+        const mockRes = await mockFetch(fullEndpoint, {
+          ...options,
+          headers,
+        });
+        const data = await mockRes.json().catch(() => ({}));
+        if (!mockRes.ok) {
+          throw new Error(data.error || `HTTP error! status: ${mockRes.status}`);
+        }
+        return data as T;
+      }
+
+      const data = await response.json().catch(() => ({}));
+      return data as T;
+    } catch {
+      // Fallback on network failure
+      const mockRes = await mockFetch(fullEndpoint, {
+        ...options,
+        headers,
+      });
+      const data = await mockRes.json().catch(() => ({}));
+      if (!mockRes.ok) {
+        throw new Error(data.error || `HTTP error! status: ${mockRes.status}`);
+      }
+      return data as T;
+    }
   }
 
   // Auth

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -33,7 +33,17 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build Vite App
-        run: npx vite build --base=/Thevasagayam-/
+        run: |
+          npx vite build
+          cp dist/index.html dist/404.html
+        env:
+          GITHUB_ACTIONS: true
+
+      - name: Deploy to gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
