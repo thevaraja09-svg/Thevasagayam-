@@ -8,8 +8,8 @@ interface LogoProps {
 
 export const DigiHubLogo: React.FC<LogoProps> = ({ size = 'md', variant = 'full', className = '' }) => {
   const sizeMap = {
-    sm: { icon: 24, text: 'text-base', sub: 'text-[9px]' },
-    md: { icon: 36, text: 'text-xl', sub: 'text-[11px]' },
+    sm: { icon: 26, text: 'text-base', sub: 'text-[10px]' },
+    md: { icon: 38, text: 'text-xl', sub: 'text-xs' },
     lg: { icon: 48, text: 'text-2xl', sub: 'text-xs' },
     xl: { icon: 64, text: 'text-3xl', sub: 'text-sm' },
   };
@@ -17,7 +17,7 @@ export const DigiHubLogo: React.FC<LogoProps> = ({ size = 'md', variant = 'full'
   const currentSize = sizeMap[size];
 
   return (
-    <div className={`flex items-center gap-2.5 select-none ${className}`} id="digihub-logo">
+    <div className={`flex items-center gap-3 select-none ${className}`} id="digihub-logo">
       {/* Brand Icon: Shield + CCTV Lens + Network Convergence */}
       <div className="relative flex-shrink-0 flex items-center justify-center">
         <svg
@@ -85,11 +85,11 @@ export const DigiHubLogo: React.FC<LogoProps> = ({ size = 'md', variant = 'full'
             <span className={`font-black tracking-tight ${currentSize.text} ${variant === 'white' ? 'text-white' : 'text-slate-900'}`}>
               DIGI
             </span>
-            <span className={`font-extrabold tracking-tight px-1.5 py-0.5 rounded text-white bg-gradient-to-r from-sky-600 via-cyan-600 to-emerald-600 ${currentSize.text}`}>
+            <span className={`font-extrabold tracking-tight px-2 py-0.5 rounded-md text-white bg-gradient-to-r from-sky-600 via-cyan-600 to-emerald-600 ${currentSize.text}`}>
               Hub
             </span>
           </div>
-          <span className={`font-semibold tracking-wider uppercase text-sky-600 dark:text-sky-400 ${currentSize.sub}`}>
+          <span className={`font-bold tracking-wider uppercase text-sky-600 dark:text-sky-400 mt-0.5 ${currentSize.sub}`}>
             CCTV & Network Solutions
           </span>
         </div>

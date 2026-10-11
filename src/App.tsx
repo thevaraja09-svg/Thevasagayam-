@@ -30,6 +30,7 @@ import {
   Wifi,
   Battery,
   ChevronDown,
+  Lock,
 } from 'lucide-react';
 
 export default function App() {
@@ -153,80 +154,80 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-sky-500 selection:text-white">
-      {/* Top Application Control Bar */}
+      {/* Top Application Control Bar with Generous Breathing Room */}
       <nav
-        className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/90 px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs z-50 sticky top-0 print:hidden shadow-lg shadow-black/20"
+        className="bg-slate-900/90 backdrop-blur-2xl border-b border-slate-800/90 px-4 sm:px-8 py-3 flex items-center justify-between text-xs z-50 sticky top-0 print:hidden shadow-xl shadow-black/20"
         id="app-top-control-bar"
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <DigiHubLogo variant="white" size="sm" />
-          <div className="hidden lg:flex items-center gap-2 border-l border-slate-800 pl-3">
-            <span className="relative flex h-2 w-2">
+          <div className="hidden lg:flex items-center gap-2 border-l border-slate-800 pl-4">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            <span className="text-[11px] text-slate-400 font-medium tracking-wide">
-              Security & Network Systems Online
+            <span className="text-xs text-slate-300 font-semibold tracking-wide">
+              Live Operations & Monitoring Online
             </span>
           </div>
         </div>
 
         {/* Center: Active Role & Quick Switcher */}
-        <div className="flex items-center gap-1 bg-slate-950/90 p-1 rounded-xl border border-slate-800/80 shadow-inner">
+        <div className="flex items-center gap-1.5 bg-slate-950/90 p-1.5 rounded-2xl border border-slate-800/80 shadow-inner">
           <button
             onClick={() => handleRoleSwitch('CUSTOMER', 'david.chen@gmail.com')}
-            className={`px-3 py-1.5 rounded-lg font-semibold text-[11px] transition-all duration-200 flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all duration-200 flex items-center gap-2 cursor-pointer ${
               currentUser?.role === 'CUSTOMER'
                 ? 'bg-gradient-to-r from-sky-600 to-cyan-600 text-white shadow-md shadow-sky-600/30 glow-sky-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
             }`}
           >
             <UserIcon className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Customer</span>
+            <span className="hidden sm:inline">Customer Portal</span>
           </button>
 
           <button
             onClick={() => handleRoleSwitch('TECHNICIAN', 'tech.alex@digihub.com')}
-            className={`px-3 py-1.5 rounded-lg font-semibold text-[11px] transition-all duration-200 flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all duration-200 flex items-center gap-2 cursor-pointer ${
               currentUser?.role === 'TECHNICIAN'
                 ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-600/30 glow-emerald-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
             }`}
           >
             <Truck className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Technician</span>
+            <span className="hidden sm:inline">Field Technician</span>
           </button>
 
           <button
             onClick={() => handleRoleSwitch('ADMIN', 'admin@digihub.com')}
-            className={`px-3 py-1.5 rounded-lg font-semibold text-[11px] transition-all duration-200 flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all duration-200 flex items-center gap-2 cursor-pointer ${
               currentUser?.role === 'ADMIN'
                 ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-600/30 glow-purple-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
             }`}
           >
             <Shield className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Admin Portal</span>
+            <span className="hidden sm:inline">Admin Management</span>
           </button>
         </div>
 
         {/* Right: Device Frame Toggle & Account Control */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {currentUser?.role === 'CUSTOMER' && (
             <button
               onClick={() => setIsMobileFrame(!isMobileFrame)}
-              className="px-3 py-1.5 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white font-medium transition-all flex items-center gap-1.5 border border-slate-700/50 shadow-sm"
-              title="Toggle between Mobile Phone Frame and Full Screen"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold text-xs transition-all flex items-center gap-2 border border-slate-700/60 shadow-xs cursor-pointer"
+              title="Toggle between Mobile Phone Simulator and Full Responsive Screen"
             >
               {isMobileFrame ? (
                 <>
                   <Monitor className="w-3.5 h-3.5 text-sky-400" />
-                  <span className="hidden sm:inline">Full Screen</span>
+                  <span className="hidden md:inline">Desktop View</span>
                 </>
               ) : (
                 <>
                   <Smartphone className="w-3.5 h-3.5 text-sky-400" />
-                  <span className="hidden sm:inline">Mobile Frame</span>
+                  <span className="hidden md:inline">Mobile Simulator</span>
                 </>
               )}
             </button>
@@ -235,13 +236,13 @@ export default function App() {
           {currentUser ? (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 hover:text-white transition-all flex items-center gap-2"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 text-slate-200 hover:text-white transition-all flex items-center gap-2 cursor-pointer"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span className="hidden md:inline font-semibold">{currentUser.fullName}</span>
+              <span className="hidden md:inline font-bold text-xs">{currentUser.fullName}</span>
             </button>
           ) : (
             <button
@@ -249,7 +250,7 @@ export default function App() {
                 setAuthModalMode('login');
                 setIsAuthModalOpen(true);
               }}
-              className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-bold transition-all shadow-md shadow-sky-600/20"
+              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-bold text-xs transition-all shadow-md shadow-sky-600/20 cursor-pointer"
             >
               Sign In
             </button>
@@ -288,22 +289,22 @@ export default function App() {
             />
           </div>
         ) : (
-          /* Customer Mobile Application */
+          /* Customer Application */
           <div
             className={`w-full transition-all duration-300 ${
               isMobileFrame
-                ? 'max-w-[420px] my-6 rounded-[48px] border-[10px] border-slate-800 bg-slate-50 shadow-2xl overflow-hidden relative'
+                ? 'max-w-[420px] my-8 rounded-[48px] border-[10px] border-slate-800 bg-slate-50 shadow-2xl overflow-hidden relative'
                 : 'w-full bg-slate-50'
             }`}
           >
-            {/* Mobile Phone Notch & Status Bar (Only visible when Mobile Frame is active) */}
+            {/* Mobile Phone Status Bar (Only visible in Mobile Frame) */}
             {isMobileFrame && (
-              <div className="bg-slate-900 text-white text-[11px] px-6 py-2 flex items-center justify-between select-none border-b border-slate-800">
-                <span className="font-semibold">9:41</span>
+              <div className="bg-slate-900 text-white text-[11px] px-6 py-2.5 flex items-center justify-between select-none border-b border-slate-800">
+                <span className="font-bold">9:41</span>
                 <div className="w-24 h-4 bg-black rounded-full mx-auto" />
                 <div className="flex items-center gap-1.5">
                   <Wifi className="w-3 h-3" />
-                  <span className="font-bold text-[9px]">5G</span>
+                  <span className="font-extrabold text-[9px]">5G</span>
                   <Battery className="w-3.5 h-3.5" />
                 </div>
               </div>
